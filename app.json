@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "PDA Handheld",
+    "slug": "pda-handheld",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#1565C0"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.pdahandheld"
+    },
+    "android": {
+      "package": "com.yourcompany.pdahandheld"
+    },
+    "plugins": []
+  }
+}

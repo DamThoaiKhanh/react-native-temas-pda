@@ -1,0 +1,2 @@
+npx expo start --lan
+npx expo start --lan --port 8085
