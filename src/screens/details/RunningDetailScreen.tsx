@@ -8,28 +8,10 @@ import {
   Alert,
   ActivityIndicator,
   ScrollView,
-  Switch,
-  TextInput,
-  Platform,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  useAuthStore,
-  useOrderStore,
-  useRobotStore,
-  useNotificationStore,
-  useNavStore,
-  useWsStore,
-} from "../../stores";
-import {
-  RunningOrder,
-  RobotInfo,
-  RobotMode,
-  TaskRunningState,
-  ChargingMode,
-  AppNotification,
-  RequestOrder,
-} from "../../models";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { RunningOrder } from "../../models";
 import { formatDate } from "../../components/utils";
 import { DetailCard } from "../../components/common/DetailCard";
 import { DetailRow } from "../../components/common/DetailRow";
@@ -40,9 +22,12 @@ export default function RunningDetailScreen() {
   const order: RunningOrder = route.params.order;
 
   return (
-    <ScrollView contentContainerStyle={{ padding: 16 }}>
+    <ScrollView
+      style={commonStyles.container}
+      contentContainerStyle={{ padding: 16 }}
+    >
       <View style={{ alignItems: "center", marginBottom: 24 }}>
-        <Text style={{ fontSize: 48 }}>🔄</Text>
+        <Ionicons name="sync-circle" size={50} color="green" />
         <View style={[commonStyles.badge, { backgroundColor: "green" }]}>
           <Text style={commonStyles.badgeText}>RUNNING</Text>
         </View>
@@ -52,8 +37,10 @@ export default function RunningDetailScreen() {
         <DetailRow label="Task Name" value={order.taskName} />
         <DetailRow label="Status" value="Running" />
         <DetailRow label="Created On" value={formatDate(order.createdOn)} />
+        <DetailRow label="Start On" value={formatDate(order.startOn)} />
       </DetailCard>
       <DetailCard title="Robot Information">
+        {/* <DetailRow label="Robot ID" value={order.robotId ?? "N/A"} /> */}
         <DetailRow label="Robot IP" value={order.robotIp} />
         <DetailRow label="Robot Name" value={order.robotName} />
       </DetailCard>

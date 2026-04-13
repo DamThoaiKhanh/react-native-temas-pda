@@ -213,6 +213,7 @@ export function demandOrderFromJson(json: Record<string, any>): DemandOrder {
 export interface QueueOrder {
   taskId: string;
   taskName: string;
+  priority: number;
   createdAt: string;
 }
 
@@ -220,6 +221,7 @@ export function queueOrderFromJson(json: Record<string, any>): QueueOrder {
   return {
     taskId: json.taskId ?? "",
     taskName: json.taskName ?? "",
+    priority: Number(json.priority ?? 0),
     createdAt: json.createOn
       ? new Date(json.createOn).toISOString()
       : new Date().toISOString(),

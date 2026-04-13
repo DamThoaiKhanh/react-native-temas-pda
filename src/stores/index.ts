@@ -356,7 +356,7 @@ interface NotificationState {
   isSelectAll: boolean;
 
   loadNotifications: () => Promise<void>;
-  addNotification: (n: AppNotification) => Promise<void>;
+  addNotification: (notification: AppNotification) => Promise<void>;
   deleteNotification: (id: string) => Promise<void>;
   toggleSelectionMode: () => void;
   toggleNotificationSelection: (id: string) => void;
@@ -377,8 +377,8 @@ export const useNotificationStore = create<NotificationState>((set, get) => ({
     set({ notifications });
   },
 
-  async addNotification(n) {
-    const notifications = [n, ...get().notifications];
+  async addNotification(notification) {
+    const notifications = [notification, ...get().notifications];
     await storage.saveNotifications(notifications);
     set({ notifications });
   },

@@ -2,33 +2,24 @@ import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
-  FlatList,
   TouchableOpacity,
   StyleSheet,
   Alert,
   ActivityIndicator,
   ScrollView,
   Switch,
-  TextInput,
-  Platform,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  useAuthStore,
-  useOrderStore,
-  useRobotStore,
-  useNotificationStore,
-  useNavStore,
-  useWsStore,
-} from "../../stores";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { useRobotStore, useNotificationStore, useWsStore } from "../../stores";
 import {
   RunningOrder,
   RobotInfo,
   RobotMode,
+  makeOfflineRobotStatus,
   TaskRunningState,
   ChargingMode,
   AppNotification,
-  RequestOrder,
 } from "../../models";
 import { WsCommands } from "../../stores";
 import { getBatteryColor } from "@/components/utils";
@@ -54,25 +45,7 @@ export default function RobotDetailScreen() {
     return () => clearInterval(timerRef.current);
   }, []);
 
-  const rs = getRobotStatus(robot.id) ?? {
-    battery: 0,
-    mode: RobotMode.manual,
-    emergency: false,
-    taskState: TaskRunningState.stopped,
-    chargingMode: ChargingMode.free,
-    x: 0,
-    y: 0,
-    theta: 0,
-    confidence: 0,
-    currentTask: "",
-    currentTaskId: "",
-    online: false,
-    voltage: 0,
-    current: 0,
-    status: "Offline",
-    id: robot.id,
-    ipAddress: robot.ipAddress,
-  };
+  const rs = getRobotStatus(robot.id) ?? makeOfflineRobotStatus();
   const connected = getRobotConnection(robot.id);
 
   const radToDeg = (r: number) => ((r * 180) / Math.PI).toFixed(1);
@@ -90,17 +63,37 @@ export default function RobotDetailScreen() {
       >
         <StatusHighlight
           label="CONNECTION"
-          icon={connected ? "📶" : "❌"}
+          icon={
+            <AntDesign
+              name={connected ? "wifi" : "disconnect"}
+              size={30}
+              color={connected ? "#16a34a" : "#6b7280"}
+            />
+          }
           active={connected}
         />
+
         <StatusHighlight
-          label="AUTO MODE"
-          icon="🔄"
+          label={rs.mode === RobotMode.auto ? "AUTO MODE" : "MANUAL MODE"}
+          icon={
+            <AntDesign
+              name="sync"
+              size={30}
+              color={rs.mode === RobotMode.auto ? "#16a34a" : "#6b7280"}
+            />
+          }
           active={rs.mode === RobotMode.auto}
         />
+
         <StatusHighlight
           label="EMERGENCY"
-          icon={rs.emergency ? "🔒" : "🔓"}
+          icon={
+            <AntDesign
+              name={rs.emergency ? "warning" : "lock"}
+              size={30}
+              color={rs.emergency ? "red" : "#6b7280"}
+            />
+          }
           active={rs.emergency}
           activeColor="red"
         />

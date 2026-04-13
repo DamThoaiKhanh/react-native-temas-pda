@@ -121,7 +121,7 @@ export default function NotificationScreen() {
               color="#94A3B8"
             />
             <Text style={styles.emptyTitle}>No notifications</Text>
-            <Text style={styles.emptySub}>You’re all caught up.</Text>
+            {/* <Text style={styles.emptySub}>You’re all caught up.</Text> */}
           </View>
         }
         renderItem={({ item }) => {

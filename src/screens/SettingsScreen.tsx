@@ -1,7 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
-import { Alert, ScrollView, Switch } from "react-native";
+import {
+  Alert,
+  ScrollView,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import SettingsSection from "@/components/common/SettingsSection";
-import SettingsRow from "@/components/common/SettingsRow";
+import { commonStyles } from "@/styles/commonStyles";
+import { settingsStyles } from "@/styles/settingsStyles";
 
 export default function SettingsScreen() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -9,7 +17,10 @@ export default function SettingsScreen() {
   const [vibrationEnabled, setVibrationEnabled] = useState(false);
 
   return (
-    <ScrollView>
+    <ScrollView
+      style={commonStyles.container}
+      contentInsetAdjustmentBehavior="automatic"
+    >
       <SettingsSection title="Notifications">
         <SettingsRow
           label="Enable Notifications"
@@ -85,3 +96,36 @@ export default function SettingsScreen() {
     </ScrollView>
   );
 }
+
+const SettingsRow = ({
+  label,
+  subtitle,
+  right,
+  onPress,
+}: {
+  label: string;
+  subtitle?: string;
+  right?: React.ReactNode;
+  onPress?: () => void;
+}) => {
+  return (
+    <TouchableOpacity
+      style={settingsStyles.settingsRow}
+      onPress={onPress}
+      activeOpacity={onPress ? 0.6 : 1}
+    >
+      <View style={{ flex: 1 }}>
+        <Text style={{ fontSize: 16 }}>{label}</Text>
+        {subtitle && (
+          <Text style={{ fontSize: 13, color: "#888", marginTop: 2 }}>
+            {subtitle}
+          </Text>
+        )}
+      </View>
+      {right ??
+        (onPress ? (
+          <Text style={{ color: "#aaa", fontSize: 18 }}>›</Text>
+        ) : null)}
+    </TouchableOpacity>
+  );
+};

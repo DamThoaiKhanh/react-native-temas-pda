@@ -7,7 +7,7 @@ import {
   Alert,
   ActivityIndicator,
   ScrollView,
-  TextInput,
+  StyleSheet,
 } from "react-native";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
@@ -39,6 +39,7 @@ export default function NewRequestOrderScreen() {
 
   const priorities = Array.from({ length: 11 }, (_, i) => String(i));
 
+  // Read task list
   useEffect(() => {
     fetchAvailableTasks().finally(() => setLoading(false));
   }, []);
@@ -83,35 +84,46 @@ export default function NewRequestOrderScreen() {
     return <ActivityIndicator style={{ flex: 1, justifyContent: "center" }} />;
 
   return (
-    <ScrollView contentContainerStyle={{ padding: 24 }}>
-      <Text style={[commonStyles.title, { marginBottom: 16 }]}>
-        Task Selection
+    <View
+      style={[
+        commonStyles.container,
+        { paddingHorizontal: 8, paddingTop: 10, paddingBottom: 30 },
+      ]}
+    >
+      <Text style={[commonStyles.detailLabel, { marginBottom: 8 }]}>
+        Select Task:
       </Text>
-
-      <Text style={commonStyles.detailLabel}>Select Task</Text>
-      <ScrollView style={settingsStyles.picker} nestedScrollEnabled>
+      <ScrollView style={styles.picker} nestedScrollEnabled>
         {availableTasks.map((task) => (
           <TouchableOpacity
             key={task.taskId}
             style={[
-              settingsStyles.pickerItem,
-              taskId === task.taskId && settingsStyles.pickerItemSelected,
+              styles.pickerItem,
+              taskId === task.taskId && styles.pickerItemSelected,
             ]}
             onPress={() => {
               setTaskId(task.taskId);
               setTaskName(task.taskName);
             }}
           >
-            <Text style={{ color: taskId === task.taskId ? "#fff" : "#333" }}>
-              {task.taskId}
+            <Text
+              style={{
+                color: taskId === task.taskId ? "#fff" : "#333",
+                fontSize: 16,
+              }}
+            >
+              {task.taskId} - {task.taskName}
             </Text>
           </TouchableOpacity>
         ))}
       </ScrollView>
 
-      <Text style={[commonStyles.detailLabel, { marginTop: 16 }]}>
-        Select Priority
+      <Text
+        style={[commonStyles.detailLabel, { marginTop: 16, marginBottom: 4 }]}
+      >
+        Select Priority:
       </Text>
+
       <View
         style={{
           flexDirection: "row",
@@ -120,17 +132,22 @@ export default function NewRequestOrderScreen() {
           marginBottom: 16,
         }}
       >
-        {priorities.map((priority) => (
+        {priorities.map((prio) => (
           <TouchableOpacity
-            key={priority}
+            key={prio}
             style={[
-              settingsStyles.priItem,
-              priority === priority && settingsStyles.priItemSelected,
+              styles.priItem,
+              prio === priority && styles.priItemSelected,
             ]}
-            onPress={() => setPriority(priority)}
+            onPress={() => setPriority(prio)}
           >
-            <Text style={{ color: priority === priority ? "#fff" : "#333" }}>
-              {priority}
+            <Text
+              style={{
+                color: prio === priority ? "#fff" : "#333",
+                fontSize: 20,
+              }}
+            >
+              {prio}
             </Text>
           </TouchableOpacity>
         ))}
@@ -150,6 +167,7 @@ export default function NewRequestOrderScreen() {
       >
         <Text style={settingsStyles.saveBtnText}>SAVE</Text>
       </TouchableOpacity>
+
       <TouchableOpacity
         style={settingsStyles.clearBtn}
         onPress={() => {
@@ -160,6 +178,39 @@ export default function NewRequestOrderScreen() {
       >
         <Text style={settingsStyles.clearBtnText}>CLEAR</Text>
       </TouchableOpacity>
-    </ScrollView>
+    </View>
   );
 }
+
+export const styles = StyleSheet.create({
+  picker: {
+    flex: 1,
+    // maxHeight: 160,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 8,
+  },
+  pickerItem: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: "#eee",
+  },
+  pickerItemSelected: {
+    backgroundColor: "#1565C0",
+  },
+  priItem: {
+    width: 50,
+    height: 50,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  priItemSelected: {
+    backgroundColor: "#1565C0",
+    borderColor: "#1565C0",
+  },
+});

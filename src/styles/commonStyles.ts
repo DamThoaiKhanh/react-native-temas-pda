@@ -47,7 +47,7 @@ export const commonStyles = StyleSheet.create({
   },
   detailLabel: {
     fontWeight: "700",
-    fontSize: 14,
+    fontSize: 16,
     color: "#333",
   },
 });

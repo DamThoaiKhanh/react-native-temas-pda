@@ -87,6 +87,7 @@ export default function QueueOrderScreen() {
             <Text style={styles.cardSub}>
               Create at: {formatDate(item.createdAt)}
             </Text>
+            <Text style={styles.cardSub}>Priority: {item.priority}</Text>
           </TouchableOpacity>
         )}
       />

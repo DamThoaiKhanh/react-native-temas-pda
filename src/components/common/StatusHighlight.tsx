@@ -1,3 +1,4 @@
+import { JSX } from "react";
 import { View, Text } from "react-native";
 
 export const StatusHighlight = ({
@@ -7,7 +8,7 @@ export const StatusHighlight = ({
   activeColor = "#1565C0",
 }: {
   label: string;
-  icon: string;
+  icon: JSX.Element;
   active: boolean;
   activeColor?: string;
 }) => {
@@ -33,7 +34,7 @@ export const StatusHighlight = ({
           marginBottom: 8,
         }}
       >
-        <Text style={{ fontSize: 28 }}>{icon}</Text>
+        {icon}
       </View>
       <Text
         style={{

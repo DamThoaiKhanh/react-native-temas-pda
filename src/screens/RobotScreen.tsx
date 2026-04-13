@@ -20,6 +20,7 @@ import { wsService } from "../services/websocketService";
 import { HeaderBar } from "@/components/common/HeaderBar";
 import { getBatteryColor, getStatusColor } from "../components/utils";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { commonStyles } from "@/styles/commonStyles";
 
 export default function RobotScreen() {
@@ -50,7 +51,7 @@ export default function RobotScreen() {
     }
   }, [navIndex]);
   return (
-    <View style={{ flex: 1 }}>
+    <View style={commonStyles.container}>
       <HeaderBar
         title="Robots"
         onNotification={() => navigation.navigate("Notifications")}
@@ -69,6 +70,7 @@ export default function RobotScreen() {
         renderItem={({ item }) => {
           const connected = getRobotConnection(item.id);
           const battery = getRobotStatus(item.id)?.battery ?? -1;
+
           return (
             <TouchableOpacity
               style={commonStyles.card}
@@ -78,50 +80,119 @@ export default function RobotScreen() {
               activeOpacity={0.8}
             >
               <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Text
+                <View
                   style={{
-                    fontSize: 36,
+                    width: 44,
+                    height: 44,
+                    borderRadius: 22,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: connected ? "#E3F2FD" : "#F1F1F1",
                     marginRight: 12,
-                    color: connected ? "#1565C0" : "#aaa",
                   }}
                 >
                   <AntDesign
                     name="robot"
                     size={24}
-                    color={connected ? "#1565C0" : "#aaa"}
+                    color={connected ? "#1565C0" : "#9E9E9E"}
                   />
-                </Text>
+                </View>
+
                 <View style={{ flex: 1 }}>
                   <View
                     style={{
                       flexDirection: "row",
-                      justifyContent: "space-between",
                       alignItems: "center",
+                      justifyContent: "space-between",
+                      marginBottom: 6,
                     }}
                   >
                     <Text style={commonStyles.title}>{item.name}</Text>
+
                     <View
                       style={[
                         commonStyles.badge,
-                        { backgroundColor: connected ? "green" : "grey" },
+                        {
+                          backgroundColor: connected ? "#E8F5E9" : "#EEEEEE",
+                          flexDirection: "row",
+                          alignItems: "center",
+                        },
                       ]}
                     >
-                      <Text style={commonStyles.badgeText}>
+                      <AntDesign
+                        name={connected ? "check-circle" : "clock-circle"}
+                        size={14}
+                        color={connected ? "#2E7D32" : "#757575"}
+                      />
+                      <Text
+                        style={[
+                          commonStyles.badgeText,
+                          {
+                            color: connected ? "#2E7D32" : "#757575",
+                            marginLeft: 6,
+                          },
+                        ]}
+                      >
                         {connected ? "Connected" : "Disconnected"}
                       </Text>
                     </View>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 4,
+                    }}
+                  >
+                    <FontAwesome6
+                      name="battery-full"
+                      size={16}
+                      color={getBatteryColor(battery)}
+                    />
                     <Text
                       style={{
+                        marginLeft: 6,
                         color: getBatteryColor(battery),
                         fontWeight: "700",
                       }}
                     >
-                      🔋 {battery}%
+                      {battery >= 0 ? `${battery}%` : "N/A"}
                     </Text>
                   </View>
-                  <Text style={commonStyles.cardSub}>IP: {item.ipAddress}</Text>
-                  <Text style={commonStyles.cardSub}>ID: {item.id}</Text>
-                  <Text style={commonStyles.cardSub}>Group: {item.group}</Text>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 2,
+                    }}
+                  >
+                    <AntDesign name="link" size={14} color="#757575" />
+                    <Text style={[commonStyles.cardSub, { marginLeft: 6 }]}>
+                      IP: {item.ipAddress}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      marginBottom: 2,
+                    }}
+                  >
+                    <AntDesign name="tag" size={14} color="#757575" />
+                    <Text style={[commonStyles.cardSub, { marginLeft: 6 }]}>
+                      ID: {item.id}
+                    </Text>
+                  </View>
+
+                  <View style={{ flexDirection: "row", alignItems: "center" }}>
+                    <AntDesign name="appstore" size={14} color="#757575" />
+                    <Text style={[commonStyles.cardSub, { marginLeft: 6 }]}>
+                      Group: {item.group}
+                    </Text>
+                  </View>
                 </View>
               </View>
             </TouchableOpacity>

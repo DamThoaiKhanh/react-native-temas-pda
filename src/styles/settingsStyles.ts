@@ -20,31 +20,6 @@ export const settingsStyles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  picker: {
-    maxHeight: 160,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    borderRadius: 8,
-  },
-  pickerItem: {
-    padding: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: "#eee",
-  },
-  pickerItemSelected: {
-    backgroundColor: "#1565C0",
-  },
-  priItem: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: "#ccc",
-  },
-  priItemSelected: {
-    backgroundColor: "#1565C0",
-    borderColor: "#1565C0",
-  },
   preview: {
     backgroundColor: "#E3F2FD",
     borderRadius: 8,

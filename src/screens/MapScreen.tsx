@@ -17,6 +17,9 @@ import Svg, {
   Polygon,
 } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import {
   NavIndex,
   useNavStore,
@@ -26,6 +29,7 @@ import {
 } from "../stores";
 import { HeaderBar } from "@/components/common/HeaderBar";
 import { getServerConfig, getUser } from "../services/storageService";
+import { commonStyles } from "@/styles/commonStyles";
 
 interface SMapPoint {
   x: number;
@@ -461,7 +465,7 @@ export function MapScreen() {
       : `Map: ${mapData?.header.mapName ?? "-"} • Robots: ${robots.length} • Live: ${Object.keys(robotPoses).length} • WS: ${connectionState}`;
 
   return (
-    <View style={{ flex: 1, backgroundColor: "#f0f0f0" }}>
+    <View style={commonStyles.container}>
       <HeaderBar
         title="Map"
         onNotification={() => navigation.navigate("Notifications")}
@@ -470,7 +474,7 @@ export function MapScreen() {
 
       {/* ── Outer container — position relative so overlays work ── */}
       <View
-        style={{ flex: 1, backgroundColor: "#fafafa" }}
+        style={commonStyles.container}
         onLayout={(e) => setMapHeight(e.nativeEvent.layout.height)}
       >
         {/* Map canvas */}
@@ -504,14 +508,32 @@ export function MapScreen() {
         {/* ── Controls overlay — outside panResponder, receives touches freely ── */}
         <View style={s.controls} pointerEvents="box-none">
           {[
-            { icon: "+", onPress: zoomIn },
-            { icon: "−", onPress: zoomOut },
-            { icon: "⊡", onPress: fitView },
             {
-              icon: showStatus ? "👁" : "🚫",
+              icon: <AntDesign name="plus" size={18} color="white" />,
+              onPress: zoomIn,
+            },
+            {
+              icon: <AntDesign name="minus" size={18} color="white" />,
+              onPress: zoomOut,
+            },
+            {
+              icon: <AntDesign name="fullscreen" size={18} color="white" />,
+              onPress: fitView,
+            },
+            {
+              icon: (
+                <FontAwesome5
+                  name={showStatus ? "eye" : "eye-slash"}
+                  size={18}
+                  color="white"
+                />
+              ),
               onPress: () => setShowStatus((v) => !v),
             },
-            { icon: "📋", onPress: () => setShowLegend((v) => !v) },
+            {
+              icon: <AntDesign name="profile" size={18} color="white" />,
+              onPress: () => setShowLegend((v) => !v),
+            },
           ].map((btn, i) => (
             <React.Fragment key={i}>
               {i > 0 && <View style={s.divider} />}
@@ -520,12 +542,11 @@ export function MapScreen() {
                 onPress={btn.onPress}
                 activeOpacity={0.7}
               >
-                <Text style={s.controlIcon}>{btn.icon}</Text>
+                {btn.icon}
               </TouchableOpacity>
             </React.Fragment>
           ))}
         </View>
-
         {/* Status card */}
         {showStatus && (
           <View style={s.statusCard} pointerEvents="none">
@@ -534,7 +555,6 @@ export function MapScreen() {
             </Text>
           </View>
         )}
-
         {/* Legend */}
         {showLegend && (
           <View style={s.legendCard} pointerEvents="none">
@@ -548,19 +568,19 @@ export function MapScreen() {
         )}
       </View>
 
-      {/* FAB */}
+      {/* Floating point button */}
       <TouchableOpacity
-        style={s.fab}
+        style={s.floatingActionBtn}
         onPress={async () => {
           await fetchRobots();
           await fetchMapData();
-          sendCommand(1006);
+          sendCommand(WsCommands.getRobotListStatus);
         }}
       >
         {isLoading ? (
           <ActivityIndicator color="#fff" />
         ) : (
-          <Text style={s.fabText}>↺</Text>
+          <Ionicons name="refresh-outline" size={30} color="white" />
         )}
       </TouchableOpacity>
     </View>
@@ -646,20 +666,23 @@ const s = StyleSheet.create({
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
   },
-  legendTitle: { fontWeight: "700", fontSize: 12, marginBottom: 6 },
-  fab: {
+  legendTitle: {
+    fontWeight: "700",
+    fontSize: 12,
+    marginBottom: 6,
+  },
+  floatingActionBtn: {
     position: "absolute",
     bottom: 24,
     right: 24,
-    width: 52,
-    height: 52,
-    borderRadius: 26,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: "#1565C0",
     justifyContent: "center",
     alignItems: "center",
     elevation: 6,
   },
-  fabText: { color: "#fff", fontSize: 26, fontWeight: "bold" },
 });
 
 export default MapScreen;

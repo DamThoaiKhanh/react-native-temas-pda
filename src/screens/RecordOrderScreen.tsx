@@ -45,7 +45,7 @@ export default function RecordOrderScreen() {
   }, [navIndex]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={commonStyles.container}>
       <HeaderBar
         title="Record Orders"
         onNotification={() => navigation.navigate("Notifications")}

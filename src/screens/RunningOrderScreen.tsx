@@ -114,8 +114,11 @@ export default function RunningOrderScreen() {
                 ▶ RUNNING
               </Text>
             </View>
-            <Text style={commonStyles.cardSub}>Task ID: {item.taskId}</Text>
             <Text style={commonStyles.title}>Task name: {item.taskName}</Text>
+            <Text style={commonStyles.cardSub}>Task ID: {item.taskId}</Text>
+            <Text style={commonStyles.cardSub}>
+              Robot: {item.robotName} - {item.robotIp}
+            </Text>
           </TouchableOpacity>
         )}
       />

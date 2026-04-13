@@ -2,16 +2,12 @@ import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
-  FlatList,
   TouchableOpacity,
   StyleSheet,
   Alert,
-  ActivityIndicator,
   ScrollView,
-  Switch,
-  TextInput,
-  Platform,
 } from "react-native";
+import { JSX } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
   useAuthStore,
@@ -21,8 +17,8 @@ import {
 } from "../stores";
 import { HeaderBar } from "@/components/common/HeaderBar";
 import { DetailCard } from "@/components/common/DetailCard";
-import { InfoRow } from "@/components/common/InfoRow";
 import { commonStyles } from "../styles/commonStyles";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function ProfileScreen() {
   const navigation = useNavigation<any>();
@@ -46,7 +42,7 @@ export default function ProfileScreen() {
   if (!user) return <Text style={commonStyles.empty}>User not logged in</Text>;
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={commonStyles.container}>
       <HeaderBar
         title="Profile"
         onNotification={() => navigation.navigate("Notifications")}
@@ -56,30 +52,42 @@ export default function ProfileScreen() {
         <View style={{ alignItems: "center", marginBottom: 24 }}>
           <View
             style={{
-              width: 100,
-              height: 100,
-              borderRadius: 50,
+              width: 70,
+              height: 70,
+              borderRadius: 35,
               backgroundColor: "#1565C0",
               justifyContent: "center",
               alignItems: "center",
               marginBottom: 8,
             }}
           >
-            <Text style={{ fontSize: 50, color: "#fff" }}>👤</Text>
+            <AntDesign name="user" size={42} color="#fff" />
           </View>
         </View>
         <DetailCard title="User Information">
-          <InfoRow icon="👤" label="User" value={user.account} />
-          <InfoRow icon="🏷" label="Role" value={user.role} />
+          <InfoRow
+            icon={<AntDesign name="user" size={24} color="#1565C0" />}
+            label="User"
+            value={user.account}
+          />
+          <InfoRow
+            icon={<AntDesign name="idcard" size={24} color="#1565C0" />}
+            label="Role"
+            value={user.role}
+          />
         </DetailCard>
         {serverConfig && (
           <DetailCard title="Server Configuration">
             <InfoRow
-              icon="🖥"
+              icon={<AntDesign name="link" size={24} color="#1565C0" />}
               label="IP Address"
               value={serverConfig.ipAddress}
             />
-            <InfoRow icon="🔌" label="Port" value={serverConfig.port} />
+            <InfoRow
+              icon={<AntDesign name="api" size={24} color="#1565C0" />}
+              label="Port"
+              value={serverConfig.port}
+            />
           </DetailCard>
         )}
         <TouchableOpacity
@@ -100,3 +108,32 @@ export default function ProfileScreen() {
     </View>
   );
 }
+
+const InfoRow = ({
+  icon,
+  label,
+  value,
+}: {
+  icon: JSX.Element;
+  label: string;
+  value: string;
+}) => {
+  return (
+    <View
+      style={{
+        flexDirection: "row",
+        alignItems: "center",
+        paddingVertical: 10,
+        gap: 12,
+      }}
+    >
+      {icon}
+      <View>
+        <Text style={{ fontSize: 12, color: "#888" }}>{label}</Text>
+        <Text style={{ fontSize: 16, fontWeight: "500", marginTop: 2 }}>
+          {value}
+        </Text>
+      </View>
+    </View>
+  );
+};

@@ -11,6 +11,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   useAuthStore,
   useOrderStore,
@@ -145,7 +146,7 @@ export default function RequestOrderScreen() {
           navigation.navigate("NewRequestOrder", { order: undefined })
         }
       >
-        <Text style={styles.floatingActionBtnText}>+</Text>
+        <Ionicons name="add" size={40} color="white" />
       </TouchableOpacity>
     </View>
   );
@@ -175,10 +176,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     elevation: 6,
-  },
-  floatingActionBtnText: {
-    color: "#fff",
-    fontSize: 28,
-    lineHeight: 30,
   },
 });
