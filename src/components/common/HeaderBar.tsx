@@ -10,6 +10,8 @@ import {
 import Ionicons from "@expo/vector-icons/Ionicons";
 import useWsStore from "@/stores/useWsStore";
 import { WsConnectionState } from "@/services/websocketService";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
+import { ca } from "zod/locales";
 
 export function HeaderBar({
   title,
@@ -30,13 +32,30 @@ export function HeaderBar({
       case WsConnectionState.Connected:
         return "Connected";
       case WsConnectionState.Connecting:
-        return "Disconnected";
+        return "Connecting...";
       case WsConnectionState.Disconnected:
         return "Disconnected";
+      case WsConnectionState.Reconnecting:
+        return "Reconnecting...";
       default:
         return "Disconnected";
     }
   };
+
+  const getStatusIcon = () => {
+    switch (connectionState) {
+      case WsConnectionState.Connected:
+        return { name: "checkmark-circle-outline", color: "green" };
+      case WsConnectionState.Connecting:
+        return { name: "reload-circle-outline", color: "orange" };
+      case WsConnectionState.Disconnected:
+        return { name: "exclamation-circle-outline", color: "red" };
+      case WsConnectionState.Reconnecting:
+        return { name: "reload-circle-outline", color: "orange" };
+    }
+  };
+
+  const statusIcon = getStatusIcon();
 
   return (
     <>
@@ -78,9 +97,9 @@ export function HeaderBar({
           <Pressable style={hdr.modalCard} onPress={() => {}}>
             <View style={hdr.modalHeader}>
               <Ionicons
-                name={isConnected ? "checkmark-circle" : "alert-circle-outline"}
+                name={statusIcon?.name as any}
                 size={28}
-                color={isConnected ? "green" : "orange"}
+                color={statusIcon?.color}
               />
               <Text style={hdr.modalTitle}>Connection Status</Text>
             </View>
