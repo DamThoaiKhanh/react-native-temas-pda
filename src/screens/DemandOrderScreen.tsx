@@ -11,13 +11,8 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import {
-  useOrderStore,
-  useNotificationStore,
-  useNavStore,
-  NavIndex,
-} from "../stores";
-import { RequestOrder, NotificationType } from "../models";
+import useOrderStore from "../stores/useOrderStore";
+import useNavStore, { NavIndex } from "../stores/useNavStore";
 import { formatDate } from "../components/utils";
 
 import { HeaderBar } from "@/components/common/HeaderBar";

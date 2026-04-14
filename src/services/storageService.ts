@@ -16,6 +16,7 @@ const KEYS = {
   USER: "user",
   ACCOUNT: "account",
   PASSWORD: "password",
+  TOKEN: "token",
   NOTIFICATIONS: "notifications",
   REQUEST_ORDERS: (account: string) => `request_orders_${account}`,
 };

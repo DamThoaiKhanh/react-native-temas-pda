@@ -1,14 +1,15 @@
 import { StyleSheet } from "react-native";
+import * as constances from "./constants";
 
 export const commonStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F8FAFC",
+    backgroundColor: constances.colors.background,
   },
   empty: {
     textAlign: "center",
     marginTop: 60,
-    color: "#888",
+    color: constances.colors.textMuted,
     fontSize: 16,
   },
   card: {

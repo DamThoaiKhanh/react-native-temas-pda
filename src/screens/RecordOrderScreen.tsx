@@ -13,15 +13,8 @@ import {
   Platform,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  useAuthStore,
-  useOrderStore,
-  useRobotStore,
-  useNotificationStore,
-  useNavStore,
-  useWsStore,
-  NavIndex,
-} from "../stores";
+import useNavStore, { NavIndex } from "../stores/useNavStore";
+import useRobotStore from "../stores/useRobotStore";
 import { HeaderBar } from "@/components/common/HeaderBar";
 import { formatDate, getStatusColor } from "../components/utils";
 import { commonStyles } from "@/styles/commonStyles";

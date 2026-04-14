@@ -8,30 +8,10 @@ import {
   Alert,
   ActivityIndicator,
   ScrollView,
-  Switch,
-  TextInput,
-  Platform,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  useAuthStore,
-  useOrderStore,
-  useRobotStore,
-  useNotificationStore,
-  useNavStore,
-  useWsStore,
-} from "../../stores";
-import {
-  RunningOrder,
-  RobotInfo,
-  RobotMode,
-  TaskRunningState,
-  ChargingMode,
-  AppNotification,
-  RequestOrder,
-} from "../../models";
+import useRobotStore from "../../stores/useRobotStore";
 import { formatDate } from "../../components/utils";
-import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function RecordDetailScreen() {
   const route = useRoute<any>();

@@ -12,7 +12,9 @@ import {
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useAuthStore, useOrderStore, useNotificationStore } from "../stores";
+import useOrderStore from "../stores/useOrderStore";
+import useAuthStore from "../stores/useAuthStore";
+import useNotificationStore from "../stores/useNotificationStore";
 import { RequestOrder } from "../models";
 import { commonStyles } from "@/styles/commonStyles";
 import { settingsStyles } from "@/styles/settingsStyles";

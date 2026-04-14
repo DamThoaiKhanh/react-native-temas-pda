@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useNotificationStore } from "../stores";
+import useNotificationStore from "../stores/useNotificationStore";
 import { formatDate } from "../components/utils";
 
 export default function NotificationScreen() {

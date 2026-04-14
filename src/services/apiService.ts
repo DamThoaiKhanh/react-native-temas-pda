@@ -44,6 +44,19 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
       ...(options.headers ?? {}),
     },
   });
+
+  // console.log(`API ${options.method ?? "GET"} ${path} => ${res.status}`);
+  if (res.status === 401) {
+    // clear token, navigate to login
+    // useAuthStore.getState().logout();
+    throw new Error("Unauthorized. Please login again.");
+  }
+
+  if (res.status === 500) {
+    // server error — show user friendly message
+    throw new Error("Server internal error. Please try again later.");
+  }
+
   if (!res.ok) throw new Error(`HTTP ${res.status} on ${path}`);
   return res.json() as Promise<T>;
 }
@@ -75,10 +88,21 @@ export async function login(
   }
 }
 
+export async function validateToken(): Promise<boolean> {
+  try {
+    const res = await request<any>("/api/v1/auth/verify");
+    return res.meta?.code === 0;
+  } catch {
+    return false;
+  }
+}
+
 // Get tasks list
 export async function getTasks(): Promise<Task[]> {
   const json = await request<any>("/api/v1/tasks");
-  return (json.data as any[]).map(taskFromJson);
+  return (json.data as any[]).map((item) =>
+    taskFromJson({ taskId: item.id, taskName: item.name }),
+  );
 }
 
 // Send a request order to CORE, which will be converted to demand order if CORE accepts it
@@ -165,7 +189,12 @@ export async function getRobotDetail(id: string): Promise<RobotStatus> {
   return {
     id: rs.id ?? "",
     ipAddress: rs.ipAddress ?? "",
+    x: Number(json.x ?? 0),
+    y: Number(json.y ?? 0),
+    theta: Number(json.theta ?? 0),
     mode: clamp(Number(ds.mode ?? 0), 1) as RobotMode,
+    voltage: json.voltage != null ? Number(json.voltage) : undefined,
+    current: json.current != null ? Number(json.current) : undefined,
     currentTask: ct.taskName ?? "",
     currentTaskId: ct.taskId ?? "",
     taskState: clamp(Number(ct.state ?? 0), 4) as TaskRunningState,

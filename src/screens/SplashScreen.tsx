@@ -8,7 +8,7 @@ import {
   StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useAuthStore } from "../stores";
+import useAuthStore from "../stores/useAuthStore";
 
 const welcomeMsg = "Welcome";
 const version = "PDA v1.0.0";
@@ -21,7 +21,22 @@ export default function SplashScreen() {
     (async () => {
       await init();
       await new Promise((r) => setTimeout(r, 5000));
-      navigation.replace("Login");
+
+      const serverConfig = useAuthStore.getState().serverConfig;
+      if (!serverConfig) {
+        navigation.navigate("ServerSettings");
+        return;
+      }
+
+      const user = useAuthStore.getState().user;
+      if (!user) {
+        navigation.replace("Login");
+        return;
+      }
+
+      const valid = await useAuthStore.getState().validateToken();
+      if (valid) navigation.replace("Main");
+      else navigation.replace("Login");
     })();
   }, []);
 

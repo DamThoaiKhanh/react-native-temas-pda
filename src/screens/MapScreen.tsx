@@ -20,13 +20,9 @@ import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import {
-  NavIndex,
-  useNavStore,
-  useRobotStore,
-  useWsStore,
-  WsCommands,
-} from "../stores";
+import useNavStore, { NavIndex } from "../stores/useNavStore";
+import useRobotStore from "../stores/useRobotStore";
+import useWsStore, { WsCommands } from "../stores/useWsStore";
 import { HeaderBar } from "@/components/common/HeaderBar";
 import { getServerConfig, getUser } from "../services/storageService";
 import { commonStyles } from "@/styles/commonStyles";

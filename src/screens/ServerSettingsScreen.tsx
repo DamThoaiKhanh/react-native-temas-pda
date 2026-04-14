@@ -12,7 +12,7 @@ import {
   StatusBar,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useAuthStore } from "../stores";
+import useAuthStore from "../stores/useAuthStore";
 
 function isValidIPv4(ip: string): boolean {
   const parts = ip.split(".");

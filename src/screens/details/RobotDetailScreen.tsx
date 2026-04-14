@@ -11,7 +11,9 @@ import {
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useRobotStore, useNotificationStore, useWsStore } from "../../stores";
+import useRobotStore from "@/stores/useRobotStore";
+import useNotificationStore from "@/stores/useNotificationStore";
+import useWsStore, { WsCommands } from "@/stores/useWsStore";
 import {
   RunningOrder,
   RobotInfo,
@@ -21,7 +23,6 @@ import {
   ChargingMode,
   AppNotification,
 } from "../../models";
-import { WsCommands } from "../../stores";
 import { getBatteryColor } from "@/components/utils";
 import { DetailCard } from "@/components/common/DetailCard";
 import { DetailRow } from "@/components/common/DetailRow";

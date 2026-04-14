@@ -15,7 +15,8 @@ import {
 } from "react-native";
 import { NotificationType, AppNotification } from "@/models";
 import { useNavigation } from "@react-navigation/native";
-import { useAuthStore, useNotificationStore } from "../stores";
+import useAuthStore from "../stores/useAuthStore";
+import useNotificationStore from "../stores/useNotificationStore";
 export default function LoginScreen() {
   const navigation = useNavigation<any>();
   const {

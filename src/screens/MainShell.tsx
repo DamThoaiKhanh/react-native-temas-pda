@@ -13,8 +13,9 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import { useAuthStore, useNavStore, useWsStore } from "../stores";
-
+import useAuthStore from "../stores/useAuthStore";
+import useNavStore from "../stores/useNavStore";
+import useWsStore from "../stores/useWsStore";
 import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";

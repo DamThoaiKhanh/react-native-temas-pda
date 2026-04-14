@@ -7,15 +7,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  useRobotStore,
-  useNotificationStore,
-  useNavStore,
-  useWsStore,
-  WsCommands,
-  NavIndex,
-} from "../stores";
-
+import useRobotStore from "../stores/useRobotStore";
+import useWsStore, { WsCommands } from "../stores/useWsStore";
+import useNavStore, { NavIndex } from "../stores/useNavStore";
 import { wsService } from "../services/websocketService";
 import { HeaderBar } from "@/components/common/HeaderBar";
 import { getBatteryColor, getStatusColor } from "../components/utils";

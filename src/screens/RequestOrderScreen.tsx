@@ -12,13 +12,10 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import {
-  useAuthStore,
-  useOrderStore,
-  useNotificationStore,
-  useNavStore,
-  NavIndex,
-} from "../stores";
+import useNavStore, { NavIndex } from "../stores/useNavStore";
+import useAuthStore from "../stores/useAuthStore";
+import useOrderStore from "../stores/useOrderStore";
+import useNotificationStore from "../stores/useNotificationStore";
 import { RequestOrder, NotificationType } from "../models";
 import { formatDate } from "../components/utils";
 import { commonStyles } from "@/styles/commonStyles";

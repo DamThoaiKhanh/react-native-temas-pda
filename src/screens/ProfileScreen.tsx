@@ -9,12 +9,8 @@ import {
 } from "react-native";
 import { JSX } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import {
-  useAuthStore,
-  useNotificationStore,
-  useNavStore,
-  NavIndex,
-} from "../stores";
+import useNavStore, { NavIndex } from "../stores/useNavStore";
+import useAuthStore from "../stores/useAuthStore";
 import { HeaderBar } from "@/components/common/HeaderBar";
 import { DetailCard } from "@/components/common/DetailCard";
 import { commonStyles } from "../styles/commonStyles";
