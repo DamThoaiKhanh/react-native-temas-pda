@@ -87,18 +87,16 @@ export default function ProfileScreen() {
           </DetailCard>
         )}
         <TouchableOpacity
-          style={{
-            backgroundColor: "red",
-            borderRadius: 10,
-            paddingVertical: 16,
-            alignItems: "center",
-            marginTop: 24,
-          }}
+          style={[
+            commonStyles.expandBtnContainer,
+            {
+              backgroundColor: "red",
+              marginTop: 24,
+            },
+          ]}
           onPress={handleLogout}
         >
-          <Text style={{ color: "#fff", fontWeight: "700", fontSize: 16 }}>
-            LOGOUT
-          </Text>
+          <Text style={commonStyles.expandBtnText}>LOGOUT</Text>
         </TouchableOpacity>
       </ScrollView>
     </View>

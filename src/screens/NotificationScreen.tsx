@@ -11,6 +11,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import useNotificationStore from "../stores/useNotificationStore";
 import { formatDate } from "../components/utils";
+import { colors, radius } from "@/styles/constants";
 
 export default function NotificationScreen() {
   const {
@@ -314,16 +315,16 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 18,
+    backgroundColor: colors.surface,
+    borderRadius: radius["3xl"],
     padding: 14,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: "#E2E8F0",
+    borderColor: colors.primaryBorder,
   },
   cardSelected: {
-    borderColor: "#2563EB",
-    backgroundColor: "#F8FBFF",
+    borderColor: colors.primary,
+    backgroundColor: colors.surfaceSelected,
   },
   cardRow: {
     flexDirection: "row",

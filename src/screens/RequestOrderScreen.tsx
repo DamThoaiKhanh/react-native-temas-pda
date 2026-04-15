@@ -19,6 +19,7 @@ import useNotificationStore from "../stores/useNotificationStore";
 import { RequestOrder, NotificationType } from "../models";
 import { formatDate } from "../components/utils";
 import { commonStyles } from "@/styles/commonStyles";
+import { colors } from "@/styles/constants";
 import { HeaderBar } from "@/components/common/HeaderBar";
 
 export default function RequestOrderScreen() {
@@ -127,10 +128,13 @@ export default function RequestOrderScreen() {
               </Text>
               {isSelected && (
                 <TouchableOpacity
-                  style={styles.actionBtn}
+                  style={[
+                    commonStyles.expandBtnContainer,
+                    { marginTop: 12, backgroundColor: colors.primary },
+                  ]}
                   onPress={() => send(item)}
                 >
-                  <Text style={styles.actionBtnText}>Send</Text>
+                  <Text style={commonStyles.expandBtnText}>Send</Text>
                 </TouchableOpacity>
               )}
             </TouchableOpacity>
@@ -138,7 +142,7 @@ export default function RequestOrderScreen() {
         }}
       />
       <TouchableOpacity
-        style={styles.floatingActionBtn}
+        style={commonStyles.floatingActionBtn}
         onPress={() =>
           navigation.navigate("NewRequestOrder", { order: undefined })
         }
@@ -148,30 +152,3 @@ export default function RequestOrderScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  actionBtn: {
-    marginTop: 12,
-    backgroundColor: "#1565C0",
-    borderRadius: 8,
-    paddingVertical: 10,
-    alignItems: "center",
-  },
-  actionBtnText: {
-    color: "#fff",
-    fontWeight: "700",
-    fontSize: 18,
-  },
-  floatingActionBtn: {
-    position: "absolute",
-    bottom: 24,
-    right: 24,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: "#1565C0",
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 6,
-  },
-});

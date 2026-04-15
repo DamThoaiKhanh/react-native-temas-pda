@@ -566,7 +566,7 @@ export function MapScreen() {
 
       {/* Floating point button */}
       <TouchableOpacity
-        style={s.floatingActionBtn}
+        style={commonStyles.floatingActionBtn}
         onPress={async () => {
           await fetchRobots();
           await fetchMapData();
@@ -666,18 +666,6 @@ const s = StyleSheet.create({
     fontWeight: "700",
     fontSize: 12,
     marginBottom: 6,
-  },
-  floatingActionBtn: {
-    position: "absolute",
-    bottom: 24,
-    right: 24,
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: "#1565C0",
-    justifyContent: "center",
-    alignItems: "center",
-    elevation: 6,
   },
 });
 

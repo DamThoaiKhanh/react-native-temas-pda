@@ -24,10 +24,10 @@ export function formatDate(iso?: string | null): string {
 }
 
 export const getStatusColor = (status: string) => {
-  const l = status.toLowerCase();
-  if (["finish", "completed", "success"].includes(l)) return "green";
-  if (["failed", "error"].includes(l)) return "red";
-  if (l === "cancelled") return "orange";
+  const stt = status.toLowerCase();
+  if (["finish", "completed", "success"].includes(stt)) return "green";
+  if (["failed", "error"].includes(stt)) return "red";
+  if (stt === "cancelled") return "orange";
   return "grey";
 };
 

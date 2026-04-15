@@ -50,8 +50,13 @@ export const spacing = {
 };
 
 export const radius = {
+  none: 0,
+  xs: 2,
   sm: 4,
   md: 8,
   lg: 10,
-  pill: 12,
+  xl: 12,
+  "2xl": 16,
+  "3xl": 20,
+  full: 9999,
 };

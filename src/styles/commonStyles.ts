@@ -10,11 +10,11 @@ export const commonStyles = StyleSheet.create({
     textAlign: "center",
     marginTop: 60,
     color: constances.colors.textMuted,
-    fontSize: 16,
+    fontSize: constances.fontSize.base,
   },
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
+    backgroundColor: constances.colors.surface,
+    borderRadius: constances.radius["3xl"],
     padding: 16,
     marginBottom: 10,
     elevation: 2,
@@ -24,16 +24,18 @@ export const commonStyles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
   },
   cardSelected: {
-    backgroundColor: "#E3F2FD",
+    backgroundColor: constances.colors.surfaceSelected,
+    borderColor: constances.colors.primaryBorder,
+    borderWidth: 1,
   },
   title: {
-    fontSize: 16,
+    fontSize: constances.fontSize.base,
     fontWeight: "700",
     marginBottom: 6,
   },
   cardSub: {
-    fontSize: 13,
-    color: "#555",
+    fontSize: constances.fontSize.md,
+    color: constances.colors.textSecondary,
     marginBottom: 2,
   },
   badge: {
@@ -43,12 +45,34 @@ export const commonStyles = StyleSheet.create({
   },
   badgeText: {
     color: "#fff",
-    fontSize: 11,
+    fontSize: constances.fontSize.xs,
     fontWeight: "700",
   },
   detailLabel: {
     fontWeight: "700",
     fontSize: 16,
     color: "#333",
+  },
+  expandBtnContainer: {
+    borderRadius: 10,
+    paddingVertical: 16,
+    alignItems: "center",
+  },
+  expandBtnText: {
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: constances.fontSize.lg,
+  },
+  floatingActionBtn: {
+    position: "absolute",
+    bottom: 24,
+    right: 24,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    backgroundColor: constances.colors.primary,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 6,
   },
 });

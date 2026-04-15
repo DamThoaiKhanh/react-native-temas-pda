@@ -70,10 +70,10 @@ export default function RecordOrderScreen() {
               }}
             >
               <View style={{ flex: 1 }}>
-                <Text style={commonStyles.cardSub}>Task ID: {item.taskId}</Text>
                 <Text style={commonStyles.title}>
                   Task name: {item.taskName}
                 </Text>
+                <Text style={commonStyles.cardSub}>Task ID: {item.taskId}</Text>
               </View>
               <View
                 style={[
@@ -84,9 +84,12 @@ export default function RecordOrderScreen() {
                 <Text style={commonStyles.badgeText}>{item.status}</Text>
               </View>
             </View>
-            {item.robotName && (
+            {/* {item.robotName && (
               <Text style={commonStyles.cardSub}>🤖 {item.robotName}</Text>
-            )}
+            )} */}
+            <Text style={commonStyles.cardSub}>
+              Robot: {item.robotName} - {item.robotIp}
+            </Text>
             {item.createdOn && (
               <Text style={commonStyles.cardSub}>
                 🕒 {formatDate(item.createdOn)}

@@ -60,7 +60,7 @@ export default function RunningOrderScreen() {
   };
 
   const showMenu = (order: RunningOrder) => {
-    Alert.alert("Options", order.taskName, [
+    Alert.alert("Select Options", order.taskName, [
       {
         text: "Detail",
         onPress: () => navigation.navigate("RunningDetail", { order }),

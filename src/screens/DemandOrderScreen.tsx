@@ -17,6 +17,7 @@ import { formatDate } from "../components/utils";
 
 import { HeaderBar } from "@/components/common/HeaderBar";
 import { commonStyles } from "@/styles/commonStyles";
+import { colors } from "@/styles/constants";
 
 export default function DemandOrderScreen() {
   const navigation = useNavigation<any>();
@@ -60,8 +61,8 @@ export default function DemandOrderScreen() {
     );
   };
 
-  const showMenu = (taskId: string) => {
-    Alert.alert("Options", "", [
+  const showMenu = (taskId: string, taskName: string) => {
+    Alert.alert("Select Options", taskName, [
       {
         text: "Delete",
         style: "destructive",
@@ -97,7 +98,7 @@ export default function DemandOrderScreen() {
                 isSelected && commonStyles.cardSelected,
               ]}
               onPress={() => setSelectedId(isSelected ? null : item.taskId)}
-              onLongPress={() => showMenu(item.taskId)}
+              onLongPress={() => showMenu(item.taskId, item.taskName)}
               activeOpacity={0.8}
             >
               <Text style={commonStyles.title}>Task name: {item.taskName}</Text>
@@ -107,10 +108,13 @@ export default function DemandOrderScreen() {
               </Text>
               {isSelected && (
                 <TouchableOpacity
-                  style={styles.actionBtn}
+                  style={[
+                    commonStyles.expandBtnContainer,
+                    { backgroundColor: colors.primary, marginTop: 12 },
+                  ]}
                   onPress={() => confirmOrder(item.taskId)}
                 >
-                  <Text style={styles.actionBtnText}>Confirm</Text>
+                  <Text style={commonStyles.expandBtnText}>Confirm</Text>
                 </TouchableOpacity>
               )}
             </TouchableOpacity>
@@ -120,18 +124,3 @@ export default function DemandOrderScreen() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  actionBtn: {
-    marginTop: 12,
-    backgroundColor: "#1565C0",
-    borderRadius: 8,
-    paddingVertical: 10,
-    alignItems: "center",
-  },
-  actionBtnText: {
-    color: "#fff",
-    fontSize: 18,
-    fontWeight: "700",
-  },
-});
